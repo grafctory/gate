@@ -16,21 +16,25 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Changed
 
+- **Breaking**: Upgrade `@metreeca/blue`, `@metreeca/core` and `@metreeca/qest` to `^0.14.0`, `@metreeca/keep` and
+  `@metreeca/tape` to `^0.13.0` and `@metreeca/http` to `^0.6.0`; projects using them alongside this package raise
+  their own ranges to the same versions, so that each of them is shared as a single copy
 - Let client templates retrieve hidden members by naming them: `hidden` is presentational and only leaves a member out
   of the default view served to a request carrying no query component, whatever the server template states
-- Reject with `422 Unprocessable Content` client templates naming undeclared members, stating malformed entries or
-  entries conflicting with the server template, which were silently dropped or replaced by the server entry
-- Serve client `#` page sizes as stated, rather than capped by the server template; bound them with
-  `server(store, { limit })`, which rejects requests exceeding the limit instead of truncating them silently
-- Reject with `422 Unprocessable Content` `PUT` bodies naming a resource other than the request target, and `POST`
-  bodies stating an identifier that is not a string, rather than silently replacing the identifier they state
+- **Breaking**: Reject with `422 Unprocessable Content` client templates naming undeclared members, stating malformed
+  entries or entries conflicting with the server template, which were silently dropped or replaced by the server
+  entry; clients drop or correct the offending entries, which no longer fall back to the server template
+- **Breaking**: Serve client `#` page sizes as stated, rather than capped by the server template; applications relying
+  on the server template to cap them set `server(store, { limit })`, which rejects oversized requests instead
+- **Breaking**: Reject with `422 Unprocessable Content` `PUT` bodies naming a resource other than the request target,
+  and `POST` bodies stating an identifier that is not a string, rather than silently replacing the identifier they
+  state; clients omit the identifier, or state the request target in `PUT` bodies and a string in `POST` bodies
 
 ### Removed
 
-- Remove `LookupHooks.scope`: retrieval bounds are now set once for the whole application with the `server()` scope,
-  so every route enforces them, rather than only the routes whose `lookup()` hooks repeat them
-- Remove the `LookupHooks` and `WriteHooks` types: the hooks accepted by `Driver` methods are now stated inline on
-  each method, so applications naming the types should derive them with `Parameters<Driver["lookup"]>[0]` instead
+- **Breaking**: Remove the `LookupHooks` and `WriteHooks` types and the `scope` retrieval hook: bound retrieval once
+  for the whole application with `server(store, scope)`, which every route enforces, and derive the hook types where
+  needed as `Parameters<Driver["lookup"]>[0]` and `Parameters<Driver["create"]>[0]`
 
 ### Fixed
 
