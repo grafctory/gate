@@ -22,9 +22,6 @@
   "externalSymbolLinkMappings": {
     "global": {
       "TypeError": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError"
-    },
-    "typescript": {
-      "TypeError": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError"
     }
   },
   "navigationLinks": {
