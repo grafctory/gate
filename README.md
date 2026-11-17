@@ -85,6 +85,12 @@ await server()
 	});
 ```
 
+> [!TIP]
+>
+> The server sets no CORS headers, so browsers block API calls from pages served on other origins. To accept these
+> calls, mount the Express [`cors`](https://github.com/expressjs/cors) middleware ahead of the routes, so that its
+> headers reach every response, driver routes included, and configure it for the origins your clients use.
+
 ## Serving Resources
 
 Drivers expose the resources a shape describes as a REST/JSON API. Pass the store holding the resources to `server()`,
