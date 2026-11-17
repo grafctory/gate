@@ -40,6 +40,8 @@ import { base, checked, decoding, handler, scope, storage, target } from "./inde
  * Localised content is negotiated through the `Accept-Language` header. Requests naming no language get the server
  * `locale`, or the store default where the server was created without a `locale` of its own.
  *
+ * Every response is marked as varying by `Accept-Language`, so that HTTP caches keep each language apart.
+ *
  * - `200 OK` with the resource as JSON
  * - `404 Not Found` where the store holds no such resource and the lookup is not `virtual`, or `review` withholds it
  *
@@ -65,6 +67,8 @@ export function lookup({ shape, virtual, model, review }: {
 }): RequestHandler {
 
 	return handler(async (request, response) => {
+
+		response.vary("Accept-Language");
 
 		const $scope = scope(request);
 

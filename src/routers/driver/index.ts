@@ -124,6 +124,8 @@ export type Driver = RequestHandler & {
 	 * them. An empty query retrieves the default view the shape describes. Localised content is negotiated through the
 	 * `Accept-Language` header. If it names no language, the server `locale` applies, or else the store default.
 	 *
+	 * Every response is marked as varying by `Accept-Language`, so that HTTP caches keep each language apart.
+	 *
 	 * - `200 OK` with the resource as JSON
 	 * - `404 Not Found` where the store holds no such resource and the driver is not virtual, or `review` withholds it
 	 *

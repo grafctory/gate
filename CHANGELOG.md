@@ -32,6 +32,11 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Remove the `LookupHooks` and `WriteHooks` types: the hooks accepted by `Driver` methods are now stated inline on
   each method, so applications naming the types should derive them with `Parameters<Driver["lookup"]>[0]` instead
 
+### Fixed
+
+- Mark `Driver.lookup()` responses as varying by `Accept-Language`, so that HTTP caches no longer serve content
+  localised for one language to requests asking for another
+
 ## [0.12.0](https://github.com/metreeca/gate/compare/v0.11.0...v0.12.0) - 2026-10-22
 
 ### Added

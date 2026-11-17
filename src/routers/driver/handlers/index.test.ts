@@ -395,6 +395,29 @@ describe("lookup()", () => {
 
 		});
 
+		it("marks responses as varying by Accept-Language", async () => {
+
+			const { response } = await serve(
+				mounted(lookup({ shape: Products }), stub({ lookup: resolving({ id: "x" }) })),
+				"/products/",
+				{ headers: { "Accept-Language": "fr" } }
+			);
+
+			expect(response.headers.get("Vary")).toMatch(/\bAccept-Language\b/);
+
+		});
+
+		it("marks responses as varying by Accept-Language where the request names no language", async () => {
+
+			const { response } = await serve(
+				mounted(lookup({ shape: Products }), stub({ lookup: resolving({ id: "x" }) })),
+				"/products/"
+			);
+
+			expect(response.headers.get("Vary")).toMatch(/\bAccept-Language\b/);
+
+		});
+
 	});
 
 	describe("IRIs", () => {
