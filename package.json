@@ -61,11 +61,11 @@
     "proof": "ush up npx typedoc --watch + ush ws --open docs"
   },
   "dependencies": {
-    "@metreeca/blue": "^0.14.0",
+    "@metreeca/blue": "^0.15.0",
     "@metreeca/core": "^0.14.0",
     "@metreeca/http": "^0.6.0",
-    "@metreeca/keep": "^0.13.0",
-    "@metreeca/qest": "^0.14.0",
+    "@metreeca/keep": "^0.14.0",
+    "@metreeca/qest": "^0.15.0",
     "@metreeca/tape": "^0.13.0"
   },
   "devDependencies": {
