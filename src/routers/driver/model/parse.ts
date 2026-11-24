@@ -23,10 +23,10 @@
  * @module
  */
 
-import { getShapeProperties, type ResourceShape } from "@metreeca/blue/resource";
-import { eager } from "@metreeca/blue/value";
-import { error, type Lazy } from "@metreeca/core";
-import { type Criteria, decodeCriteria, decodeTemplate, type Template } from "@metreeca/qest/model";
+import { getShapeProperties, type ResourceShape } from "@grafctory/blue/resource";
+import { eager } from "@grafctory/blue/value";
+import { error, type Lazy } from "@grafctory/core";
+import { type Criteria, decodeCriteria, decodeTemplate, type Template } from "@grafctory/qest/model";
 import { expand } from "./expand.js";
 
 
@@ -38,8 +38,8 @@ import { expand } from "./expand.js";
  * Accepts the query in either of the forms below:
  *
  * - a template as plain, URL-encoded or base64url-encoded JSON, in any of the formats produced by
- *   {@link @metreeca/qest/model!encodeTemplate | encodeTemplate}, its internal IRIs resolved against the base
- * - {@link @metreeca/qest/model!Criteria | criteria} as `application/x-www-form-urlencoded` form data, constraining
+ *   {@link @grafctory/qest/model!encodeTemplate | encodeTemplate}, its internal IRIs resolved against the base
+ * - {@link @grafctory/qest/model!Criteria | criteria} as `application/x-www-form-urlencoded` form data, constraining
  *   the items of the collection the target resource holds, keys and values encoded one by one as form data requires
  *
  * Form data is told apart by the `=` separating each key from its value, which no template encoding carries outside

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-import { Forbidden, Found, InternalServerError, NotFound, OK, ServiceUnavailable } from "@metreeca/http";
-import type { Store, StoreScope } from "@metreeca/keep";
+import { Forbidden, Found, InternalServerError, NotFound, OK, ServiceUnavailable } from "@grafctory/http";
+import type { Store, StoreScope } from "@grafctory/keep";
 import type { Request, Response } from "express";
 import { Server as HTTPServer } from "node:http";
 import { createServer, type AddressInfo } from "node:net";

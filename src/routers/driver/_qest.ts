@@ -17,15 +17,15 @@
 /**
  * Qest model extensions.
  *
- * Collects the operations on Qest retrieval models that belong with `@metreeca/qest` rather than with the gateway,
+ * Collects the operations on Qest retrieval models that belong with `@grafctory/qest` rather than with the gateway,
  * staged here until they move upstream, at which point the gateway imports them from Qest instead.
  *
  * @module
  */
 
-import { assert, error, isArray } from "@metreeca/core";
-import { type Criteria, decodeProbe, isCriteria, isOptions, type Options } from "@metreeca/qest/model";
-import { isDictionary, isLiteral } from "@metreeca/qest/state";
+import { assert, error, isArray } from "@grafctory/core";
+import { type Criteria, decodeProbe, isCriteria, isOptions, type Options } from "@grafctory/qest/model";
+import { isDictionary, isLiteral } from "@grafctory/qest/state";
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

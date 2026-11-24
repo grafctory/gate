@@ -20,9 +20,9 @@
  * @module
  */
 
-import type { ResourceShape } from "@metreeca/blue/resource";
-import type { Lazy } from "@metreeca/core";
-import { NoContent, NotFound } from "@metreeca/http";
+import type { ResourceShape } from "@grafctory/blue/resource";
+import type { Lazy } from "@grafctory/core";
+import { NoContent, NotFound } from "@grafctory/http";
 import type { RequestHandler } from "express";
 import { handler, storage, target } from "./index.js";
 

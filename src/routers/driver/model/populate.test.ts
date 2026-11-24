@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-import { dictionary } from "@metreeca/blue/dictionary";
-import { reference } from "@metreeca/blue/reference";
-import { id, multiple, optional, required, resource } from "@metreeca/blue/resource";
-import { string } from "@metreeca/blue/string";
-import { union } from "@metreeca/blue/union";
+import { dictionary } from "@grafctory/blue/dictionary";
+import { reference } from "@grafctory/blue/reference";
+import { id, multiple, optional, required, resource } from "@grafctory/blue/resource";
+import { string } from "@grafctory/blue/string";
+import { union } from "@grafctory/blue/union";
 import { describe, expect, it } from "vitest";
 import { expand } from "./expand.js";
 import { populate } from "./populate.js";

@@ -20,10 +20,10 @@
  * @module
  */
 
-import { validate } from "@metreeca/blue";
-import { getShapeId, type ResourceShape } from "@metreeca/blue/resource";
-import { error, isObject, type Lazy } from "@metreeca/core";
-import { NoContent, NotFound } from "@metreeca/http";
+import { validate } from "@grafctory/blue";
+import { getShapeId, type ResourceShape } from "@grafctory/blue/resource";
+import { error, isObject, type Lazy } from "@grafctory/core";
+import { NoContent, NotFound } from "@grafctory/http";
 import type { Request, RequestHandler } from "express";
 import { body, checked, handler, storage, target } from "./index.js";
 

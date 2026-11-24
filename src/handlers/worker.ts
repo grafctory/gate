@@ -23,7 +23,7 @@
  * @module worker
  */
 
-import { OK } from "@metreeca/http";
+import { OK } from "@grafctory/http";
 import type { RequestHandler } from "express";
 
 

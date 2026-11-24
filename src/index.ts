@@ -24,12 +24,12 @@
  * @module index
  */
 
-import { assert, isArray, isError, isNumber, isObject } from "@metreeca/core";
-import { isTag } from "@metreeca/core/language";
-import { isIRI } from "@metreeca/core/resource";
-import { BadRequest, InternalServerError, NotFound } from "@metreeca/http";
-import { log } from "@metreeca/tape";
-import type { Store, StoreScope } from "@metreeca/keep";
+import { assert, isArray, isError, isNumber, isObject } from "@grafctory/core";
+import { isTag } from "@grafctory/core/language";
+import { isIRI } from "@grafctory/core/resource";
+import { BadRequest, InternalServerError, NotFound } from "@grafctory/http";
+import { log } from "@grafctory/tape";
+import type { Store, StoreScope } from "@grafctory/keep";
 import express, { type ErrorRequestHandler, type Express, type RequestHandler } from "express";
 import type { Server as HTTPServer } from "node:http";
 import { BaseSetting, ScopeSetting, StoreSetting } from "./index.core.js";

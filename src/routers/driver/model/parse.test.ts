@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { dictionary } from "@metreeca/blue/dictionary";
-import { integer } from "@metreeca/blue/number";
-import { reference } from "@metreeca/blue/reference";
-import { id, multiple, optional, required, resource } from "@metreeca/blue/resource";
-import { string } from "@metreeca/blue/string";
-import { encodeTemplate } from "@metreeca/qest/model";
+import { dictionary } from "@grafctory/blue/dictionary";
+import { integer } from "@grafctory/blue/number";
+import { reference } from "@grafctory/blue/reference";
+import { id, multiple, optional, required, resource } from "@grafctory/blue/resource";
+import { string } from "@grafctory/blue/string";
+import { encodeTemplate } from "@grafctory/qest/model";
 import { describe, expect, it } from "vitest";
 import { query } from "./parse.js";
 

@@ -23,11 +23,11 @@
  * @module
  */
 
-import { getShapeTarget } from "@metreeca/blue/reference";
-import { getShapeProperties, type Member, type ResourceShape } from "@metreeca/blue/resource";
-import { getShapeBranches } from "@metreeca/blue/union";
-import type { Shape } from "@metreeca/blue/value";
-import type { Lazy } from "@metreeca/core";
+import { getShapeTarget } from "@grafctory/blue/reference";
+import { getShapeProperties, type Member, type ResourceShape } from "@grafctory/blue/resource";
+import { getShapeBranches } from "@grafctory/blue/union";
+import type { Shape } from "@grafctory/blue/value";
+import type { Lazy } from "@grafctory/core";
 import {
 	type Cell,
 	isCriteria,
@@ -37,7 +37,7 @@ import {
 	type Query,
 	type Slot,
 	type Template
-} from "@metreeca/qest/model";
+} from "@grafctory/qest/model";
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -52,11 +52,11 @@ import {
  * **Shape defaults**
  *
  * - literal, localised and reference members, identifier and type included, are retrieved as they stand, as an
- *   {@link @metreeca/qest/model!Atomic | Atomic} leaf: a linked resource is returned as its reference and never
+ *   {@link @grafctory/qest/model!Atomic | Atomic} leaf: a linked resource is returned as its reference and never
  *   expanded, and a localised member is returned as the label coalesced under the negotiated language priority
  * - embedded resources, which have no identity of their own, are expanded to their own default view
  * - unions are retrieved as an `Atomic` leaf unless a branch is an embedded resource, in which case each branch is
- *   retrieved under its own {@link @metreeca/qest/model!Union | Union} key, embedded branches expanded
+ *   retrieved under its own {@link @grafctory/qest/model!Union | Union} key, embedded branches expanded
  * - multi-valued members take the same entry as single-valued ones, with no paging of their own
  *
  * **Template entries**
@@ -75,7 +75,7 @@ import {
  * @returns A template retrieving the members `template` states and the visible members of `shape` it leaves out,
  *     hidden ones included where `opts.hidden` is set; empty where no member is retrieved
  *
- * @throws {@link @metreeca/core!TraceError | TraceError} Where a deferred definition reached from `shape` reaches
+ * @throws {@link @grafctory/core!TraceError | TraceError} Where a deferred definition reached from `shape` reaches
  *     itself, or where a union it reaches declares a shared member name inconsistently across its branches
  */
 export function expand(shape: Lazy<ResourceShape>, template: Template = {}, { hidden = false }: {

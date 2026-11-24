@@ -23,9 +23,9 @@
  * @module
  */
 
-import { getShapeTarget } from "@metreeca/blue/reference";
-import { getShapeProperties, type Member, type ResourceShape } from "@metreeca/blue/resource";
-import { error, type Lazy, type Optional } from "@metreeca/core";
+import { getShapeTarget } from "@grafctory/blue/reference";
+import { getShapeProperties, type Member, type ResourceShape } from "@grafctory/blue/resource";
+import { error, type Lazy, type Optional } from "@grafctory/core";
 import {
 	isAtomic,
 	isCriteria,
@@ -38,7 +38,7 @@ import {
 	type Query,
 	type Slot,
 	type Template
-} from "@metreeca/qest/model";
+} from "@grafctory/qest/model";
 import { expand } from "./expand.js";
 import { narrowCriteria } from "../_qest.js";
 
@@ -77,7 +77,7 @@ import { narrowCriteria } from "../_qest.js";
  *
  * @returns A template retrieving the members `client` asks for within the bounds of `server`
  *
- * @throws {@link @metreeca/core!TraceError | TraceError} Where a deferred definition reached from `shape` reaches
+ * @throws {@link @grafctory/core!TraceError | TraceError} Where a deferred definition reached from `shape` reaches
  *     itself, or where a union it reaches declares a shared member name inconsistently across its branches
  * @throws {@link !RangeError | RangeError} Where a client entry other than an atomic leaf meets a non-atomic server
  *     entry of a different kind, or where client and server criteria stated on the same key cannot be combined, as

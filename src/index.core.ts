@@ -18,16 +18,16 @@
  * The application setting holding the canonical base the server was started with, as an absolute hierarchical IRI,
  * or `undefined` where none was given; mounted sub-applications inherit it, so routes read it from `request.app`.
  */
-export const BaseSetting = "@metreeca/gate:base";
+export const BaseSetting = "@grafctory/gate:base";
 
 /**
  * The application setting holding the store the application was created with, or `undefined` where none was given;
  * mounted sub-applications inherit it, so routes read it from `request.app` wherever they are mounted in the stack.
  */
-export const StoreSetting = "@metreeca/gate:store";
+export const StoreSetting = "@grafctory/gate:store";
 
 /**
  * The application setting holding the retrieval bounds the application was created with, or `undefined` where none
  * were given; mounted sub-applications inherit it, so routes read it from `request.app` wherever they are mounted.
  */
-export const ScopeSetting = "@metreeca/gate:scope";
+export const ScopeSetting = "@grafctory/gate:scope";

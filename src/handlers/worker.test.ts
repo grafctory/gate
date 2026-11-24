@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DELETE, GET, OK, POST, PUT, ServiceUnavailable } from "@metreeca/http";
+import { DELETE, GET, OK, POST, PUT, ServiceUnavailable } from "@grafctory/http";
 import express, { type ErrorRequestHandler } from "express";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { type Criteria } from "@metreeca/qest/model";
+import { type Criteria } from "@grafctory/qest/model";
 import { describe, expect, it } from "vitest";
 import { narrowCriteria } from "./_qest.js";
 

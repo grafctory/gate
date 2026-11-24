@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { DELETE, GET, HEAD, OK, POST, PUT } from "@metreeca/http";
+import { DELETE, GET, HEAD, OK, POST, PUT } from "@grafctory/http";
 import express from "express";
 import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
 import type { Server } from "node:http";

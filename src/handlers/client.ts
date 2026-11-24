@@ -23,7 +23,7 @@
  * @module client
  */
 
-import { GET, HEAD } from "@metreeca/http";
+import { GET, HEAD } from "@grafctory/http";
 import express, { type RequestHandler } from "express";
 import { dirname, resolve } from "node:path";
 

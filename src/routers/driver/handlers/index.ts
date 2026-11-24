@@ -34,13 +34,13 @@
  * @module
  */
 
-import { error, isString, type Optional } from "@metreeca/core";
-import type { Relay } from "@metreeca/core/relay";
-import { resolve } from "@metreeca/core/resource";
-import { type Trace, TraceError } from "@metreeca/core/trace";
-import { BadRequest, UnprocessableContent, UnsupportedMediaType } from "@metreeca/http";
-import type { Store, StoreScope } from "@metreeca/keep";
-import { decodeResource } from "@metreeca/qest/state";
+import { error, isString, type Optional } from "@grafctory/core";
+import type { Relay } from "@grafctory/core/relay";
+import { resolve } from "@grafctory/core/resource";
+import { type Trace, TraceError } from "@grafctory/core/trace";
+import { BadRequest, UnprocessableContent, UnsupportedMediaType } from "@grafctory/http";
+import type { Store, StoreScope } from "@grafctory/keep";
+import { decodeResource } from "@grafctory/qest/state";
 import type { Request, RequestHandler, Response } from "express";
 import { text } from "node:stream/consumers";
 import { BaseSetting, ScopeSetting, StoreSetting } from "../../../index.core.js";

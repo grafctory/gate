@@ -20,12 +20,12 @@
  * @module
  */
 
-import { validate } from "@metreeca/blue";
-import type { ResourceShape } from "@metreeca/blue/resource";
-import { isFunction, type Lazy, type Optional } from "@metreeca/core";
-import { NotFound, OK } from "@metreeca/http";
-import type { Template } from "@metreeca/qest/model";
-import { encodeResource, type Resource } from "@metreeca/qest/state";
+import { validate } from "@grafctory/blue";
+import type { ResourceShape } from "@grafctory/blue/resource";
+import { isFunction, type Lazy, type Optional } from "@grafctory/core";
+import { NotFound, OK } from "@grafctory/http";
+import type { Template } from "@grafctory/qest/model";
+import { encodeResource, type Resource } from "@grafctory/qest/state";
 import type { Request, RequestHandler } from "express";
 import { query } from "../model/parse.js";
 import { populate } from "../model/populate.js";

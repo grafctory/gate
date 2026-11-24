@@ -1,14 +1,14 @@
-# @metreeca/gate
+# @grafctory/gate
 
-[![npm](https://img.shields.io/npm/v/@metreeca/gate)](https://www.npmjs.com/package/@metreeca/gate)
+[![npm](https://img.shields.io/npm/v/@grafctory/gate)](https://www.npmjs.com/package/@grafctory/gate)
 
 Zero-code model-driven endpoints for linked data resources.
 
-**@metreeca/gate** serves linked data resources over HTTP straight from the resource models that describe them:
+**@grafctory/gate** serves linked data resources over HTTP straight from the resource models that describe them:
 
-- **Model-Driven Endpoints**: shapes defined with [@metreeca/blue](https://github.com/metreeca/blue) drive retrieval,
-  creation, replacement and removal of resources held in a [@metreeca/keep](https://github.com/metreeca/keep) store
-- **Client-Driven Retrieval**: clients choose what to retrieve with [@metreeca/qest](https://github.com/metreeca/qest)
+- **Model-Driven Endpoints**: shapes defined with [@grafctory/blue](https://github.com/grafctory/blue) drive retrieval,
+  creation, replacement and removal of resources held in a [@grafctory/keep](https://github.com/grafctory/keep) store
+- **Client-Driven Retrieval**: clients choose what to retrieve with [@grafctory/qest](https://github.com/grafctory/qest)
   templates, and filter collections with plain form data, always within the bounds the server sets
 - **Portable Identifiers**: resources keep stable IRIs across deployments, exchanged in root-relative form with clients
 - **Production-Ready Hosting**: request logging, bodiless error responses and graceful shutdown for containers
@@ -16,14 +16,14 @@ Zero-code model-driven endpoints for linked data resources.
 
 > [!NOTE]
 >
-> **@metreeca/gate** is part of the
-> [@metreeca/qest integrated ecosystem](https://github.com/metreeca/qest#ecosystem)
+> **@grafctory/gate** is part of the
+> [@grafctory/qest integrated ecosystem](https://github.com/grafctory/qest#ecosystem)
 > for rapid development of linked data applications.
 
 # Installation
 
 ```shell
-npm install @metreeca/gate express
+npm install @grafctory/gate express
 ```
 
 > [!WARNING]
@@ -39,18 +39,18 @@ npm install @metreeca/gate express
 >
 > | Module                    | Description                          |
 > |---------------------------|--------------------------------------|
-> | [@metreeca/gate]          | HTTP server for Express applications |
-> | [@metreeca/gate/driver]   | Model-driven resource drivers        |
-> | [@metreeca/gate/client]   | Browser client hosting               |
-> | [@metreeca/gate/worker]   | Worker hosting                       |
+> | [@grafctory/gate]          | HTTP server for Express applications |
+> | [@grafctory/gate/driver]   | Model-driven resource drivers        |
+> | [@grafctory/gate/client]   | Browser client hosting               |
+> | [@grafctory/gate/worker]   | Worker hosting                       |
 
-[@metreeca/gate]: https://metreeca.github.io/gate/modules/index.html
+[@grafctory/gate]: https://grafctory.github.io/gate/modules/index.html
 
-[@metreeca/gate/driver]: https://metreeca.github.io/gate/modules/driver.html
+[@grafctory/gate/driver]: https://grafctory.github.io/gate/modules/driver.html
 
-[@metreeca/gate/client]: https://metreeca.github.io/gate/modules/client.html
+[@grafctory/gate/client]: https://grafctory.github.io/gate/modules/client.html
 
-[@metreeca/gate/worker]: https://metreeca.github.io/gate/modules/worker.html
+[@grafctory/gate/worker]: https://grafctory.github.io/gate/modules/worker.html
 
 ## Serving Applications
 
@@ -58,7 +58,7 @@ npm install @metreeca/gate express
 shutdown. Define its routes as usual, then serve it over HTTP with `listen()`, passing the server options:
 
 ```typescript
-import { server } from "@metreeca/gate";
+import { server } from "@grafctory/gate";
 
 await server()
 
@@ -97,13 +97,13 @@ Drivers expose the resources a shape describes as a REST/JSON API. Pass the stor
 then mount a driver on each route, enabling only the HTTP methods the route supports:
 
 ```typescript
-import { server } from "@metreeca/gate";
-import { driver } from "@metreeca/gate/driver";
-import { number } from "@metreeca/blue/number";
-import { reference } from "@metreeca/blue/reference";
-import { id, multiple, required, resource } from "@metreeca/blue/resource";
-import { string } from "@metreeca/blue/string";
-import { store } from "./store.js"; // any @metreeca/keep store
+import { server } from "@grafctory/gate";
+import { driver } from "@grafctory/gate/driver";
+import { number } from "@grafctory/blue/number";
+import { reference } from "@grafctory/blue/reference";
+import { id, multiple, required, resource } from "@grafctory/blue/resource";
+import { string } from "@grafctory/blue/string";
+import { store } from "./store.js"; // any @grafctory/keep store
 
 await server(store)
 
@@ -134,7 +134,7 @@ function Product() {
 The `base` option names the canonical IRI of the service, so stored resources keep the same identifiers wherever the
 server runs. Without it, resources are identified by the scheme and host each request was received on.
 
-Each enabled method follows the payload conventions of [@metreeca/qest](https://github.com/metreeca/qest#usage):
+Each enabled method follows the payload conventions of [@grafctory/qest](https://github.com/grafctory/qest#usage):
 
 | Method    | Enabled by       | Request body | Response                                                          |
 |-----------|------------------|--------------|-------------------------------------------------------------------|
@@ -164,7 +164,7 @@ GET https://data.example.com/products/
 }
 ```
 
-Clients may state a [template](https://github.com/metreeca/qest#client-driven-retrieval) in the query string to choose
+Clients may state a [template](https://github.com/grafctory/qest#client-driven-retrieval) in the query string to choose
 what to retrieve, or filter the collection with plain form data, as an HTML form would submit it:
 
 ```http request
@@ -192,8 +192,8 @@ it, such as a catalog listing every instance of a class with no stored container
 `lookup()` only: enabling a write method on them throws a `TypeError` at once, before any request is served.
 
 Driver endpoints follow the protocol of the
-[@metreeca/keep-rest](https://metreeca.github.io/keep/modules/_metreeca_keep-rest.html) connector, so remote
-applications may access the published resources through the standard `@metreeca/keep` store API. Drivers support the
+[@grafctory/keep-rest](https://grafctory.github.io/keep/modules/_grafctory_keep-rest.html) connector, so remote
+applications may access the published resources through the standard `@grafctory/keep` store API. Drivers support the
 `lookup()`, `create()`, `update()` and `delete()` store methods. They ignore the `Prefer: handling=lenient` header,
 so `insert()` succeeds only on resources that already exist, while `remove()` behaves as usual.
 
@@ -214,8 +214,8 @@ To deliver a browser client from the same origin as the API, mount `client()` ah
 folder holding the client build, or the path of its entry page when it is not named `index.html`:
 
 ```typescript
-import { server } from "@metreeca/gate";
-import { client } from "@metreeca/gate/client";
+import { server } from "@grafctory/gate";
+import { client } from "@grafctory/gate/client";
 
 await server()
 
@@ -234,8 +234,8 @@ reload. Requests for API resources at the same address fall through to the API r
 To run a background job on request, for instance from a scheduler, mount `worker()` on a dedicated route:
 
 ```typescript
-import { server } from "@metreeca/gate";
-import { worker } from "@metreeca/gate/worker";
+import { server } from "@grafctory/gate";
+import { worker } from "@grafctory/gate/worker";
 
 await server()
 
@@ -250,10 +250,10 @@ access control is left to the surrounding routes, for instance to the IAM checks
 
 # Support
 
-- Open an [issue](https://github.com/metreeca/gate/issues) to report a problem or to suggest a new feature
-- Start a [discussion](https://github.com/metreeca/gate/discussions) to ask a how-to question or to share an idea
+- Open an [issue](https://github.com/grafctory/gate/issues) to report a problem or to suggest a new feature
+- Start a [discussion](https://github.com/grafctory/gate/discussions) to ask a how-to question or to share an idea
 
 # License
 
 This project is licensed under the Apache 2.0 License –
-see [LICENSE](https://github.com/metreeca/gate?tab=Apache-2.0-1-ov-file) file for details.
+see [LICENSE](https://github.com/grafctory/gate?tab=Apache-2.0-1-ov-file) file for details.

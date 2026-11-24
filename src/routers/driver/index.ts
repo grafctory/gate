@@ -17,7 +17,7 @@
 /**
  * Model-driven resource drivers.
  *
- * Serves resources held in a `@metreeca/keep` store, so that an Express application exposes a REST API for the
+ * Serves resources held in a `@grafctory/keep` store, so that an Express application exposes a REST API for the
  * resources a shape describes. The application enables the HTTP methods each route supports, with no handler to write.
  *
  * ```typescript
@@ -87,11 +87,11 @@
  * @module
  */
 
-import type { ResourceShape } from "@metreeca/blue/resource";
-import { error, type Lazy, type Optional } from "@metreeca/core";
-import { DELETE, GET, HEAD, MethodNotAllowed, NoContent, OPTIONS, POST, PUT } from "@metreeca/http";
-import type { Template } from "@metreeca/qest/model";
-import type { Resource } from "@metreeca/qest/state";
+import type { ResourceShape } from "@grafctory/blue/resource";
+import { error, type Lazy, type Optional } from "@grafctory/core";
+import { DELETE, GET, HEAD, MethodNotAllowed, NoContent, OPTIONS, POST, PUT } from "@grafctory/http";
+import type { Template } from "@grafctory/qest/model";
+import type { Resource } from "@grafctory/qest/state";
 import type { Request, RequestHandler } from "express";
 import { create as createHandler } from "./handlers/create.js";
 import { deleet as deleetHandler } from "./handlers/delete.js";
@@ -119,7 +119,7 @@ export type Driver = RequestHandler & {
 	/**
 	 * Enables `GET` and `HEAD`, retrieving the resource.
 	 *
-	 * The query component of the request selects what to retrieve. It may state a `@metreeca/qest` template, or
+	 * The query component of the request selects what to retrieve. It may state a `@grafctory/qest` template, or
 	 * form-encoded criteria filtering the collection the resource holds, as a client filtering a list would state
 	 * them. An empty query retrieves the default view the shape describes. Localised content is negotiated through the
 	 * `Accept-Language` header. If it names no language, the server `locale` applies, or else the store default.

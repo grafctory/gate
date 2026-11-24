@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-import { reference } from "@metreeca/blue/reference";
-import { id, multiple, optional, required, resource as shape } from "@metreeca/blue/resource";
-import { string } from "@metreeca/blue/string";
+import { reference } from "@grafctory/blue/reference";
+import { id, multiple, optional, required, resource as shape } from "@grafctory/blue/resource";
+import { string } from "@grafctory/blue/string";
 import {
 	Created,
 	DELETE,
@@ -29,8 +29,8 @@ import {
 	OPTIONS,
 	POST,
 	PUT
-} from "@metreeca/http";
-import type { Store } from "@metreeca/keep";
+} from "@grafctory/http";
+import type { Store } from "@grafctory/keep";
 import express, { type RequestHandler } from "express";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";

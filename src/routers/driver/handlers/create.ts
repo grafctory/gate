@@ -20,13 +20,13 @@
  * @module
  */
 
-import { validate } from "@metreeca/blue";
-import { getShapeTarget } from "@metreeca/blue/reference";
-import { getShapeId, getShapeProperties, type ResourceShape } from "@metreeca/blue/resource";
-import { blueprint } from "@metreeca/blue/value";
-import { error, isObject, isString, type Lazy, type Optional } from "@metreeca/core";
-import { internalize } from "@metreeca/core/resource";
-import { Conflict, Created } from "@metreeca/http";
+import { validate } from "@grafctory/blue";
+import { getShapeTarget } from "@grafctory/blue/reference";
+import { getShapeId, getShapeProperties, type ResourceShape } from "@grafctory/blue/resource";
+import { blueprint } from "@grafctory/blue/value";
+import { error, isObject, isString, type Lazy, type Optional } from "@grafctory/core";
+import { internalize } from "@grafctory/core/resource";
+import { Conflict, Created } from "@grafctory/http";
 import type { Request, RequestHandler } from "express";
 import { randomUUID } from "node:crypto";
 import { base, body, checked, handler, storage, target } from "./index.js";

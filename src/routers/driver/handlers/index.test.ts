@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-import { integer } from "@metreeca/blue/number";
-import { reference } from "@metreeca/blue/reference";
-import { id, multiple, optional, required, resource } from "@metreeca/blue/resource";
-import { string } from "@metreeca/blue/string";
-import { isObject } from "@metreeca/core";
-import { TraceError } from "@metreeca/core/trace";
+import { integer } from "@grafctory/blue/number";
+import { reference } from "@grafctory/blue/reference";
+import { id, multiple, optional, required, resource } from "@grafctory/blue/resource";
+import { string } from "@grafctory/blue/string";
+import { isObject } from "@grafctory/core";
+import { TraceError } from "@grafctory/core/trace";
 import {
 	BadRequest,
 	Conflict,
@@ -33,9 +33,9 @@ import {
 	PUT,
 	UnprocessableContent,
 	UnsupportedMediaType
-} from "@metreeca/http";
-import type { Store } from "@metreeca/keep";
-import { encodeTemplate, type Template } from "@metreeca/qest/model";
+} from "@grafctory/http";
+import type { Store } from "@grafctory/keep";
+import { encodeTemplate, type Template } from "@grafctory/qest/model";
 import express, { type RequestHandler } from "express";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
