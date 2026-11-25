@@ -10,20 +10,20 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/grafctory/gate/compare/v0.14.1...HEAD)
 
-## [0.14.1](https://github.com/metreeca/gate/compare/v0.14.0...v0.14.1) - 2026-11-24
+## [0.14.1](https://github.com/grafctory/gate/compare/v0.14.0...v0.14.1) - 2026-11-24
 
 ### Changed
 
 - Maintenance release with no change to the published API or behaviour
 
-## [0.14.0](https://github.com/metreeca/gate/compare/v0.13.0...v0.14.0) - 2026-11-19
+## [0.14.0](https://github.com/grafctory/gate/compare/v0.13.0...v0.14.0) - 2026-11-19
 
 ### Changed
 
 - **Breaking**: Upgrade `@metreeca/blue` and `@metreeca/qest` to `^0.15.0` and `@metreeca/keep` to `^0.14.0`; projects
   using them alongside this package raise their own ranges to match, so that each of them is shared as a single copy
 
-## [0.13.0](https://github.com/metreeca/gate/compare/v0.12.0...v0.13.0) - 2026-11-17
+## [0.13.0](https://github.com/grafctory/gate/compare/v0.12.0...v0.13.0) - 2026-11-17
 
 ### Added
 
@@ -59,7 +59,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Mark `Driver.lookup()` responses as varying by `Accept-Language`, so that HTTP caches no longer serve content
   localised for one language to requests asking for another
 
-## [0.12.0](https://github.com/metreeca/gate/compare/v0.11.0...v0.12.0) - 2026-10-22
+## [0.12.0](https://github.com/grafctory/gate/compare/v0.11.0...v0.12.0) - 2026-10-22
 
 ### Added
 
@@ -80,7 +80,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Upgrade `vite` to `8.3.5`, `vitest` to `4.1.12` and `markdown-it` to `14.3.3`, clearing the advisories `npm audit`
   raised against them (development dependencies only, so applications installing the package are unaffected)
 
-## [0.11.0](https://github.com/metreeca/gate/compare/v0.10.0...v0.11.0) - 2026-10-19
+## [0.11.0](https://github.com/grafctory/gate/compare/v0.10.0...v0.11.0) - 2026-10-19
 
 ### Added
 
@@ -107,7 +107,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 - Dependencies on `@metreeca/blue`, `@metreeca/keep` and `@metreeca/qest`, which no module of the package imports
 
-## [0.10.0](https://github.com/metreeca/gate/compare/v0.9.1...v0.10.0) - 2026-10-14
+## [0.10.0](https://github.com/grafctory/gate/compare/v0.9.1...v0.10.0) - 2026-10-14
 
 ### Added
 
@@ -126,7 +126,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   `^0.12.0`
 - requires `@metreeca/http` `^0.4.0`, `@metreeca/tape` `^0.11.0` and `express` `^5.3.0`
 
-## [0.9.1](https://github.com/metreeca/gate/compare/v0.9.0...v0.9.1) - 2026-09-09
+## [0.9.1](https://github.com/grafctory/gate/compare/v0.9.0...v0.9.1) - 2026-09-09
 
 ### Changed
 
