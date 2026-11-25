@@ -1,24 +1,29 @@
 # @grafctory/gate
 
-[![npm](https://img.shields.io/npm/v/@grafctory/gate)](https://www.npmjs.com/package/@grafctory/gate)
+[![npm][npm-badge]][npm]
+
+[npm-badge]: https://img.shields.io/npm/v/@grafctory/gate
+[npm]: https://www.npmjs.com/package/@grafctory/gate
+[grafctory]: https://github.com/grafctory
 
 Zero-code model-driven endpoints for linked data resources.
 
-**@grafctory/gate** serves linked data resources over HTTP straight from the resource models that describe them:
+**@grafctory/gate** is the endpoint module of the [Grafctory][grafctory] model-driven knowledge graph framework. It
+serves linked data resources over HTTP straight from the resource models that describe them:
 
-- **Model-Driven Endpoints**: shapes defined with [@grafctory/blue](https://github.com/grafctory/blue) drive retrieval,
-  creation, replacement and removal of resources held in a [@grafctory/keep](https://github.com/grafctory/keep) store
-- **Client-Driven Retrieval**: clients choose what to retrieve with [@grafctory/qest](https://github.com/grafctory/qest)
+- **Model-Driven Endpoints**: shapes defined with [@grafctory/blue] drive retrieval,
+  creation, replacement and removal of resources held in a [@grafctory/keep] store
+- **Client-Driven Retrieval**: clients choose what to retrieve with [@grafctory/qest]
   templates, and filter collections with plain form data, always within the bounds the server sets
 - **Portable Identifiers**: resources keep stable IRIs across deployments, exchanged in root-relative form with clients
 - **Production-Ready Hosting**: request logging, bodiless error responses and graceful shutdown for containers
 - **Same-Origin Companions**: browser clients and background jobs served by the same application as the API
 
-> [!NOTE]
->
-> **@grafctory/gate** is part of the
-> [@grafctory/qest integrated ecosystem](https://github.com/grafctory/qest#ecosystem)
-> for rapid development of linked data applications.
+[@grafctory/blue]: https://github.com/grafctory/blue
+[@grafctory/keep]: https://github.com/grafctory/keep
+[@grafctory/qest]: https://github.com/grafctory/qest
+[qest-usage]: https://github.com/grafctory/qest#usage
+[@grafctory/keep-rest]: https://grafctory.github.io/keep/modules/_grafctory_keep-rest.html
 
 # Installation
 
@@ -134,7 +139,7 @@ function Product() {
 The `base` option names the canonical IRI of the service, so stored resources keep the same identifiers wherever the
 server runs. Without it, resources are identified by the scheme and host each request was received on.
 
-Each enabled method follows the payload conventions of [@grafctory/qest](https://github.com/grafctory/qest#usage):
+Each enabled method follows the payload conventions of [@grafctory/qest][qest-usage]:
 
 | Method    | Enabled by       | Request body | Response                                                          |
 |-----------|------------------|--------------|-------------------------------------------------------------------|
@@ -192,7 +197,7 @@ it, such as a catalog listing every instance of a class with no stored container
 `lookup()` only: enabling a write method on them throws a `TypeError` at once, before any request is served.
 
 Driver endpoints follow the protocol of the
-[@grafctory/keep-rest](https://grafctory.github.io/keep/modules/_grafctory_keep-rest.html) connector, so remote
+[@grafctory/keep-rest] connector, so remote
 applications may access the published resources through the standard `@grafctory/keep` store API. Drivers support the
 `lookup()`, `create()`, `update()` and `delete()` store methods. They ignore the `Prefer: handling=lenient` header,
 so `insert()` succeeds only on resources that already exist, while `remove()` behaves as usual.
@@ -257,3 +262,5 @@ access control is left to the surrounding routes, for instance to the IAM checks
 
 This project is licensed under the Apache 2.0 License –
 see [LICENSE](https://github.com/grafctory/gate?tab=Apache-2.0-1-ov-file) file for details.
+
+<sub>Grafctory™ is a trademark of Metreeca srl.</sub>
