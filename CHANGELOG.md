@@ -8,7 +8,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 > [!NOTE]
 > Published as `@grafctory/gate` from version 0.14.1; earlier versions were published as `@metreeca/gate`.
 
-## [0.15.0](https://github.com/grafctory/gate/compare/v0.14.1...HEAD)
+## [Unreleased](https://github.com/grafctory/gate/compare/v0.15.0...HEAD)
+
+## [0.15.0](https://github.com/grafctory/gate/compare/v0.14.1...v0.15.0) - 2026-11-26
+
+### Changed
+
+- **Breaking**: Upgrade `@grafctory/blue` to `^0.16.0` and `@grafctory/keep` to `^0.15.0`; projects using them
+  alongside this package raise their own ranges to match, so that each of them is shared as a single copy. Required
+  localised members stated as `{}` or `{ en: [] }` now fail validation: submit text under at least one language tag,
+  or declare the member `optional()` in the shape where an empty value is legitimate
+- README introduces the package as part of the Grafctory framework, and bug reports by email go to `info@grafctory.dev`
 
 ### Fixed
 
