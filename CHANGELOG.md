@@ -8,7 +8,7 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 > [!NOTE]
 > Published as `@grafctory/gate` from version 0.14.1; earlier versions were published as `@metreeca/gate`.
 
-## [Unreleased](https://github.com/grafctory/gate/compare/v0.14.1...HEAD)
+## [0.15.0](https://github.com/grafctory/gate/compare/v0.14.1...HEAD)
 
 ### Fixed
 
