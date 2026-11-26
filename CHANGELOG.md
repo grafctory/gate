@@ -10,6 +10,12 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased](https://github.com/grafctory/gate/compare/v0.14.1...HEAD)
 
+### Fixed
+
+- Negotiate `Accept-Language` as `@grafctory/qest` prescribes, so that clients accepting any language get content in
+  the languages the server `locale` lists by priority, and language-neutral values are always served as a last resort
+  ([#10](https://github.com/grafctory/gate/issues/10))
+
 ## [0.14.1](https://github.com/grafctory/gate/compare/v0.14.0...v0.14.1) - 2026-11-24
 
 ### Changed

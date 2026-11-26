@@ -23,6 +23,7 @@
 import { validate } from "@grafctory/blue";
 import type { ResourceShape } from "@grafctory/blue/resource";
 import { isFunction, type Lazy, type Optional } from "@grafctory/core";
+import { isTag, type Tag } from "@grafctory/core/language";
 import { NotFound, OK } from "@grafctory/http";
 import type { Template } from "@grafctory/qest/model";
 import { encodeResource, type Resource } from "@grafctory/qest/state";
@@ -37,8 +38,9 @@ import { base, checked, decoding, handler, scope, storage, target } from "./inde
  *
  * Retrieves the resource the request addresses with the template its query component states, decoded and populated
  * within the bounds of the server template and `scope`, or with the expanded server template if the query is empty.
- * Localised content is negotiated through the `Accept-Language` header. Requests naming no language get the server
- * `locale`, or the store default where the server was created without a `locale` of its own.
+ * Localised content is negotiated through the `Accept-Language` header, as `@grafctory/qest` prescribes. The server
+ * `locale` serves requests accepting any language or stating no such header. Values tagged with no language are
+ * served as a last resort, whatever the header states, so that no request misses language-neutral content.
  *
  * Every response is marked as varying by `Accept-Language`, so that HTTP caches keep each language apart.
  *
@@ -79,11 +81,9 @@ export function lookup({ shape, virtual, model, review }: {
 			model: true,
 			...$scope
 		}));
-		const locale = request.acceptsLanguages().filter(tag => tag !== "*");
-
 		const match = await storage(request).lookup({ entry, shape, model: template, virtual }, {
 			...$scope,
-			...(locale.length > 0 ? { locale } : {})
+			locale: negotiate(request.acceptsLanguages(), $scope.locale ?? [])
 		});
 
 		const payload = match === undefined || review === undefined ? match : await review(match, request);
@@ -93,5 +93,32 @@ export function lookup({ shape, virtual, model, review }: {
 			: response.status(OK).type("json").send(encodeResource(payload, { base: base(request) }));
 
 	});
+
+}
+
+
+/**
+ * Derives the language priority for a request as `@grafctory/qest` prescribes.
+ *
+ * @param ranges The accepted language ranges, ordered by preference with unacceptable ones left out
+ * @param fallback The languages standing in for the `*` wildcard
+ *
+ * @returns The deduplicated priority list, ending with the language-neutral `und` tag
+ */
+function negotiate(ranges: readonly string[], fallback: readonly Tag[]): readonly Tag[] {
+
+	return [...new Set([...ranges.flatMap(range => range === "*" ? fallback : reduce(range)), "und"])];
+
+}
+
+/**
+ * Reduces a language range to its tag at language-and-script granularity, or to none where it is malformed.
+ */
+function reduce(range: string): readonly Tag[] {
+
+	const tag = range.replace(/^([^-]+)-\*$/, "$1");
+	const [language = "", script = ""] = tag.split("-");
+
+	return isTag(tag) ? [/^[a-z]{4}$/i.test(script) ? `${language}-${script}` : language] : [];
 
 }

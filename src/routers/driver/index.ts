@@ -122,7 +122,8 @@ export type Driver = RequestHandler & {
 	 * The query component of the request selects what to retrieve. It may state a `@grafctory/qest` template, or
 	 * form-encoded criteria filtering the collection the resource holds, as a client filtering a list would state
 	 * them. An empty query retrieves the default view the shape describes. Localised content is negotiated through the
-	 * `Accept-Language` header. If it names no language, the server `locale` applies, or else the store default.
+	 * `Accept-Language` header, as `@grafctory/qest` prescribes. The server `locale` serves requests accepting any
+	 * language or stating no such header. Values tagged with no language are served whatever the header states.
 	 *
 	 * Every response is marked as varying by `Accept-Language`, so that HTTP caches keep each language apart.
 	 *

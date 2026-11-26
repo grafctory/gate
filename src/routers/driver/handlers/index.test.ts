@@ -347,11 +347,27 @@ describe("lookup()", () => {
 				headers: { "Accept-Language": "fr;q=0.5, en" }
 			});
 
-			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["en", "fr"] });
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["en", "fr", "und"] });
 
 		});
 
-		it("falls back to the store default where the Accept-Language header names no language", async () => {
+		it("derives the language priority as the Qest negotiation example prescribes", async () => {
+
+			const mock = resolving({ id: "x" });
+
+			await serve(
+				express().set(StoreSetting, stub({ lookup: mock })).set(ScopeSetting, { locale: ["fr", "es"] }).use(
+					lookup({ shape: Products })
+				),
+				"/products/",
+				{ headers: { "Accept-Language": "sr-Cyrl-RS, de-AT;q=0.9, *;q=0.5, it;q=0" } }
+			);
+
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["sr-Cyrl", "de", "fr", "es", "und"] });
+
+		});
+
+		it("falls back to language-neutral content alone where any language is accepted without a server locale", async () => {
 
 			const mock = resolving({ id: "x" });
 
@@ -359,11 +375,11 @@ describe("lookup()", () => {
 				headers: { "Accept-Language": "*" }
 			});
 
-			expect(mock.mock.calls[0]?.[1]).not.toHaveProperty("locale");
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["und"] });
 
 		});
 
-		it("falls back to the server locale where the Accept-Language header names no language", async () => {
+		it("treats a missing Accept-Language header as accepting any language", async () => {
 
 			const mock = resolving({ id: "x" });
 
@@ -371,11 +387,50 @@ describe("lookup()", () => {
 				express().set(StoreSetting, stub({ lookup: mock })).set(ScopeSetting, { locale: ["it", "en"] }).use(
 					lookup({ shape: Products })
 				),
-				"/products/",
-				{ headers: { "Accept-Language": "*" } }
+				"/products/"
 			);
 
-			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["it", "en"] });
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["it", "en", "und"] });
+
+		});
+
+		it("expands the any-language wildcard to the server locale in priority order", async () => {
+
+			const mock = resolving({ id: "x" });
+
+			await serve(
+				express().set(StoreSetting, stub({ lookup: mock })).set(ScopeSetting, { locale: ["it"] }).use(
+					lookup({ shape: Products })
+				),
+				"/products/",
+				{ headers: { "Accept-Language": "en;q=0.67, *;q=0.33" } }
+			);
+
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["en", "it", "und"] });
+
+		});
+
+		it("reduces language ranges to language and script", async () => {
+
+			const mock = resolving({ id: "x" });
+
+			await serve(mounted(lookup({ shape: Products }), stub({ lookup: mock })), "/products/", {
+				headers: { "Accept-Language": "en-US, zh-Hant-TW;q=0.9, fr-*;q=0.8" }
+			});
+
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["en", "zh-Hant", "fr", "und"] });
+
+		});
+
+		it("drops duplicates and ranges with other wildcard placements", async () => {
+
+			const mock = resolving({ id: "x" });
+
+			await serve(mounted(lookup({ shape: Products }), stub({ lookup: mock })), "/products/", {
+				headers: { "Accept-Language": "en-US, en-GB;q=0.9, *-US;q=0.8, en-*-US;q=0.7" }
+			});
+
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["en", "und"] });
 
 		});
 
@@ -391,7 +446,7 @@ describe("lookup()", () => {
 				{ headers: { "Accept-Language": "fr" } }
 			);
 
-			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["fr"] });
+			expect(mock.mock.calls[0]?.[1]).toMatchObject({ locale: ["fr", "und"] });
 
 		});
 

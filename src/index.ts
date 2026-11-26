@@ -149,7 +149,8 @@ export type ServerOpts = {
  *     application or on its sub-applications; if omitted, requests reaching a driver fail with a `500` status
  * @param scope The bounds on the page size, nesting and aggregates that client templates may ask for, enforced by
  *     every driver mounted on the application or on its sub-applications; if omitted, only shapes bound templates.
- *     Its `locale` replaces the store default for requests whose `Accept-Language` header names no language
+ *     Its `locale` lists by priority the languages served to requests accepting any language or stating no
+ *     `Accept-Language` header. Its tags state language and script at most, as finer tags never match localised labels
  *
  * @returns A new Express application, whose `listen()` serves it as described by {@link Server.listen}
  *

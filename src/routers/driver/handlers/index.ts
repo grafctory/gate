@@ -124,7 +124,7 @@ export function base(request: Request): string {
 
 /**
  * Retrieves the bounds that client templates are held to: the server `scope`, or no bounds if the application was
- * created without one. Its `locale` applies only to requests whose `Accept-Language` header names no language.
+ * created without one. Its `locale` serves requests whose `Accept-Language` header accepts any language, or is missing.
  */
 export function scope(request: Request): StoreScope {
 
