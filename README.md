@@ -11,10 +11,9 @@ Zero-code model-driven endpoints for linked data resources.
 **@grafctory/gate** is the endpoint module of the [Grafctory][grafctory] model-driven knowledge graph framework. It
 serves linked data resources over HTTP straight from the resource models that describe them:
 
-- **Model-Driven Endpoints**: shapes defined with [@grafctory/blue] drive retrieval,
-  creation, replacement and removal of resources held in a [@grafctory/keep] store
-- **Client-Driven Retrieval**: clients choose what to retrieve with [@grafctory/qest]
-  templates, and filter collections with plain form data, always within the bounds the server sets
+- **Model-Driven Endpoints**: [@grafctory/blue] shapes drive reads and writes on resources in a [@grafctory/keep] store
+- **Client-Driven Retrieval**: clients choose what to retrieve with [@grafctory/qest] templates, and filter collections
+  with plain form data, always within the page size, nesting and aggregate bounds the server sets
 - **Portable Identifiers**: resources keep stable IRIs across deployments, exchanged in root-relative form with clients
 - **Production-Ready Hosting**: request logging, bodiless error responses and graceful shutdown for containers
 - **Same-Origin Companions**: browser clients and background jobs served by the same application as the API
@@ -22,8 +21,6 @@ serves linked data resources over HTTP straight from the resource models that de
 [@grafctory/blue]: https://github.com/grafctory/blue
 [@grafctory/keep]: https://github.com/grafctory/keep
 [@grafctory/qest]: https://github.com/grafctory/qest
-[qest-usage]: https://github.com/grafctory/qest#usage
-[@grafctory/keep-rest]: https://grafctory.github.io/keep/modules/_grafctory_keep-rest.html
 
 # Installation
 
@@ -42,19 +39,16 @@ npm install @grafctory/gate express
 >
 > This section introduces essential concepts; for complete coverage, see the API reference:
 >
-> | Module                    | Description                          |
-> |---------------------------|--------------------------------------|
-> | [@grafctory/gate]          | HTTP server for Express applications |
-> | [@grafctory/gate/driver]   | Model-driven resource drivers        |
-> | [@grafctory/gate/client]   | Browser client hosting               |
-> | [@grafctory/gate/worker]   | Worker hosting                       |
+> | Module                   | Description                          |
+> |--------------------------|--------------------------------------|
+> | [@grafctory/gate]        | HTTP server for Express applications |
+> | [@grafctory/gate/driver] | Model-driven resource drivers        |
+> | [@grafctory/gate/client] | Browser client hosting               |
+> | [@grafctory/gate/worker] | Worker hosting                       |
 
 [@grafctory/gate]: https://grafctory.github.io/gate/modules/index.html
-
 [@grafctory/gate/driver]: https://grafctory.github.io/gate/modules/driver.html
-
 [@grafctory/gate/client]: https://grafctory.github.io/gate/modules/client.html
-
 [@grafctory/gate/worker]: https://grafctory.github.io/gate/modules/worker.html
 
 ## Serving Applications
@@ -93,8 +87,10 @@ await server()
 > [!TIP]
 >
 > The server sets no CORS headers, so browsers block API calls from pages served on other origins. To accept these
-> calls, mount the Express [`cors`](https://github.com/expressjs/cors) middleware ahead of the routes, so that its
-> headers reach every response, driver routes included, and configure it for the origins your clients use.
+> calls, mount the Express [`cors`][cors] middleware ahead of the routes, so that its headers reach every response,
+> driver routes included, and configure it for the origins your browser clients are served from.
+
+[cors]: https://github.com/expressjs/cors
 
 ## Serving Resources
 
@@ -152,6 +148,15 @@ Each enabled method follows the payload conventions of [@grafctory/qest][qest-us
 Methods not enabled are answered with `405 Method Not Allowed`. Templates and request bodies are validated against the
 shape, and a violation is answered with `422 Unprocessable Content` and a trace of every violation found.
 
+> [!WARNING]
+>
+> Drivers set no limit on the size of request bodies, so untrusted clients may send arbitrarily large ones. Mount
+> `express.json({ limit })` ahead of the drivers to bound them: drivers then reuse the body that parser reads.
+
+[qest-usage]: https://github.com/grafctory/qest#usage
+
+## Retrieving Resources
+
 A bare `GET` returns the default view of the resource, as the shape describes it. Linked resources are returned as
 references, and IRIs sharing the scheme and authority of the `base` are exchanged in root-relative form:
 
@@ -169,8 +174,8 @@ GET https://data.example.com/products/
 }
 ```
 
-Clients may state a [template](https://github.com/grafctory/qest#client-driven-retrieval) in the query string to choose
-what to retrieve, or filter the collection with plain form data, as an HTML form would submit it:
+Clients choose what to retrieve with a [template][qest-templates] in the query string, or filter the collection with
+plain form data, encoded as an HTML form would submit it, without learning the template syntax:
 
 ```http request
 GET https://data.example.com/products/?~name=widget&price>=50
@@ -184,6 +189,16 @@ GET https://data.example.com/products/?~name=widget&price>=50
 }
 ```
 
+> [!WARNING]
+>
+> Client templates choose their own page size, nesting and aggregates, and nothing bounds them by default. Create the
+> server with `server(store, { limit, depth, plain })` to cap every route at once. Requests exceeding the caps are
+> rejected with `422 Unprocessable Content` before they reach the store, so they never load it with oversized queries.
+
+[qest-templates]: https://github.com/grafctory/qest#client-driven-retrieval
+
+## Adapting Drivers
+
 Hooks adapt each driver to the needs of its route:
 
 - **`lookup({ model })`**: fixes the entries and collection views clients receive with a server template, possibly
@@ -196,22 +211,14 @@ Drivers created with `driver(shape, { virtual: true })` serve a resource derived
 it, such as a catalog listing every instance of a class with no stored container behind it. Virtual drivers support
 `lookup()` only: enabling a write method on them throws a `TypeError` at once, before any request is served.
 
-Driver endpoints follow the protocol of the
-[@grafctory/keep-rest] connector, so remote
-applications may access the published resources through the standard `@grafctory/keep` store API. Drivers support the
-`lookup()`, `create()`, `update()` and `delete()` store methods. They ignore the `Prefer: handling=lenient` header,
-so `insert()` succeeds only on resources that already exist, while `remove()` behaves as usual.
+## Accessing Resources Remotely
 
-> [!WARNING]
->
-> Drivers set no limit on the size of request bodies, so untrusted clients may send arbitrarily large ones. Mount
-> `express.json({ limit })` ahead of the drivers to bound them: drivers then reuse the body that parser reads.
+Driver endpoints follow the protocol of the [@grafctory/keep-rest] connector, so remote applications may access the
+published resources through the standard `@grafctory/keep` store API. Drivers support the `lookup()`, `create()`,
+`update()` and `delete()` store methods. They ignore the `Prefer: handling=lenient` header, so `insert()` fails on
+resources that do not exist yet instead of creating them, while `remove()` behaves as usual.
 
-> [!WARNING]
->
-> Client templates choose their own page size, nesting and aggregates, and nothing bounds them by default. Create the
-> server with `server(store, { limit, depth, plain })` to cap every route at once. Requests exceeding the caps are
-> rejected with `422 Unprocessable Content` before they reach the store, so they never load it with oversized queries.
+[@grafctory/keep-rest]: https://grafctory.github.io/keep/modules/_grafctory_keep-rest.html
 
 ## Hosting Clients
 
