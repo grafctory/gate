@@ -8,7 +8,13 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 > [!NOTE]
 > Published as `@grafctory/gate` from version 0.14.1; earlier versions were published as `@metreeca/gate`.
 
-## [Unreleased](https://github.com/grafctory/gate/compare/v0.15.0...HEAD)
+## [Unreleased](https://github.com/grafctory/gate/compare/v0.15.1...HEAD)
+
+## [0.15.1](https://github.com/grafctory/gate/compare/v0.15.0...v0.15.1) - 2026-11-27
+
+### Changed
+
+- README guides usage through task-oriented sections, with each security warning placed beside the feature it guards
 
 ## [0.15.0](https://github.com/grafctory/gate/compare/v0.14.1...v0.15.0) - 2026-11-26
 
